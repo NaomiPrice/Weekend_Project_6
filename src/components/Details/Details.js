@@ -13,6 +13,9 @@ class Details extends Component {
         this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
     }
 
+    goBack = ()=>{
+        this.props.history.push('/');
+    }
     
 
   // Renders the entire app on the DOM
@@ -20,11 +23,17 @@ class Details extends Component {
     return (
       
       <div className="Details">
-        <p>Details Page</p>
-        <button>GO BACK</button>
+        
+        <button onClick={this.goBack}>GO BACK</button>
         <button>EDIT</button>
-        <p>{}</p>
-        {JSON.stringify(this.props.reduxState.thisMovie)}
+        {/* <p>{JSON.stringify(this.props.reduxState.oneMovie)}</p> */}
+        {this.props.reduxState.oneMovie.map(movie => {
+            return <div className="movieDiv" key={movie.id}>
+                    <h3>{movie.title}</h3>
+                    <p>{movie.description}</p>
+                  </div>
+        })}
+       
        
       </div>
       
