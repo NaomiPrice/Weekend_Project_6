@@ -12,8 +12,16 @@ class App extends Component {
       <Router>
       <div className="App">
         <Route path="/" exact component={Home}></Route>
-        <Route path="/details/:id" render={({match})=><Details match={match}/>}></Route>
-        <Route path="/edit/:id" render={({match})=><Edit match={match}/>}></Route>
+        <Route path="/details/:id" render={(navProps)=>(
+          <Details 
+            match={navProps.match}
+            history={navProps.history}/>
+        )}></Route>
+        <Route path="/edit/:id" render={(navProps)=>(
+          <Edit 
+            match={navProps.match}
+            history={navProps.history}/>
+        )}></Route>
       </div>
       </Router>
     );
