@@ -10,19 +10,19 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div className="App">
-        <Route path="/" exact component={Home}></Route>
-        <Route path="/details/:id" render={(navProps)=>(
-          <Details 
-            match={navProps.match}
-            history={navProps.history}/>
-        )}></Route>
-        <Route path="/edit/:id" render={(navProps)=>(
-          <Edit 
-            match={navProps.match}
-            history={navProps.history}/>
-        )}></Route>
-      </div>
+        <div className="App">
+          <Route path="/" exact component={Home}></Route>
+          <Route path="/details/:id" render={(navProps)=>(
+            <Details 
+              match={navProps.match}
+              history={navProps.history}/>
+          )}></Route>
+          <Route path="/edit/:id" render={(navProps)=>(
+            <Edit 
+              match={navProps.match}
+              history={navProps.history}/>
+          )}></Route>
+        </div>
       </Router>
     );
   }

@@ -4,14 +4,16 @@ import {connect} from 'react-redux';
 
 class Details extends Component {
     componentDidMount = ()=>{
-        this.ID();
+        this.getInfo();
 
     }
 
-    ID = ()=>{
+    getInfo = ()=>{
         console.log(this.props.match.params.id);
         //server call to get details for only this movie
         this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
+        //server call to get generas that go with this movie
+        this.props.dispatch({ type: 'GET_GENRES', payload: this.props.match.params.id })
     }
 
     goBack = ()=>{
@@ -30,14 +32,22 @@ class Details extends Component {
         
         <button onClick={this.goBack}>GO BACK</button>
         <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
-        {/* <p>{JSON.stringify(this.props.reduxState.oneMovie)}</p> */}
+        {/* map through and display title and description for the selected movie */}
         {this.props.reduxState.oneMovie.map(movie => {
-            return <div className="movieDiv" key={movie.id}>
+            return <div className="movieDetailsDiv" key={movie.id}>
                     <h3>{movie.title}</h3>
                     <p>{movie.description}</p>
                   </div>
         })}
-       
+        {JSON.stringify(this.props.reduxState.genres)}
+        <div className="genres">
+            <h4>Genres</h4>
+            <ul>
+                {this.props.reduxState.genres.map((genre, i)=>{
+                return <li key={i}>{genre.name}</li>    
+                })}
+            </ul>
+        </div>
       </div>
       
     );

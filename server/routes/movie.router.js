@@ -25,4 +25,21 @@ router.get('/details/:id', (req, res)=>{
     })
 })
 
+router.get('/genres/:id', (req, res)=>{
+    let queryText = `SELECT "genres".name
+    FROM "genres"
+    JOIN "movies_genres"
+        ON "movies_genres".genre_id = "genres".id
+    JOIN "movies"
+        ON "movies_genres".movie_id = "movies".id
+    WHERE "movies".id = $1;`;
+    pool.query(queryText, [req.params.id]).then((result)=>{
+        //sends back the genre results in an object
+        res.send(result.rows);
+    }).catch((error)=>{
+        console.log('error getting movies', error);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;
