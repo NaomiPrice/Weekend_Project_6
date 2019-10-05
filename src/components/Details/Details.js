@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 class Details extends Component {
     componentDidMount = ()=>{
         this.ID();
+
     }
 
     ID = ()=>{
@@ -14,9 +15,12 @@ class Details extends Component {
     }
 
     goBack = ()=>{
-        this.props.history.push('/');
+        this.props.history.goBack();
     }
-    
+
+    goToEdit = (id)=>{
+        this.props.history.push(`/edit/${id}`)
+    }
 
   // Renders the entire app on the DOM
   render() {
@@ -25,7 +29,7 @@ class Details extends Component {
       <div className="Details">
         
         <button onClick={this.goBack}>GO BACK</button>
-        <button>EDIT</button>
+        <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
         {/* <p>{JSON.stringify(this.props.reduxState.oneMovie)}</p> */}
         {this.props.reduxState.oneMovie.map(movie => {
             return <div className="movieDiv" key={movie.id}>
@@ -33,7 +37,6 @@ class Details extends Component {
                     <p>{movie.description}</p>
                   </div>
         })}
-       
        
       </div>
       
