@@ -16,6 +16,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
  yield takeEvery('GET_MOVIES', getMovieData);
+ yield takeEvery('GET_ONE_MOVIE', getOneMovie);
 }
 
 function* getMovieData(){
@@ -25,7 +26,15 @@ function* getMovieData(){
     } catch(error){
         console.log('error while getting movies', error);
     }
-    
+}
+
+function* getOneMovie(action){
+    try{
+        const response = yield axios.get(`/movies/details/${action.payload}`);
+        yield put({type: 'SET_ONE_MOVIE', payload: response.data});
+    } catch(error){
+        console.log('error getting this one movie details', error);
+    }
 }
 
 // Create sagaMiddleware
@@ -51,11 +60,19 @@ const genres = (state = [], action) => {
     }
 }
 
+const oneMovie = (state=[], action)=>{
+    if (action.type === 'SET_ONE_MOVIE'){
+        return action.payload;
+    }
+    return state;
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        oneMovie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
