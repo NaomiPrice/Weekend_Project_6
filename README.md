@@ -14,14 +14,11 @@ Utilizing Redux-sagas to handle server calls while program displays a list of mo
  - CSS grid
 ​
 ### Prerequisites
-​
 - [Node.js](https://nodejs.org/en/)
 - [PostgreSQL](https://www.postgresql.org)
 - [Postico](https://eggerapps.at/postico/)
 ​
-​
-### Installing
-​
+
 ## Database Setup
 
 1. Create a database named `saga_movies_weekend`
