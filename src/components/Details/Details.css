@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Mansalva|Open+Sans&display=swap');
+
+.Details, .Edit{
+    font-family: 'Open Sans', sans-serif;
+    padding: 30px;
+}
+.movieDetailsDiv{
+    text-align: center
+}
+button{
+    padding: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    width: 150px;
+}
+
+p{
+    width: 600px;
+    margin: auto;
+}
+
+ul{
+    width: 90px;
+    margin: auto;
+    text-align: left;
+}
+
+.title {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.description {
+    width: 500px;
+    height: 150px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 17px;
+}

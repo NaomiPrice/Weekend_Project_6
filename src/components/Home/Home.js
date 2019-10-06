@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MovieItem from '../MovieItem/MovieItem'
 import {connect} from 'react-redux';
+import './Home.css';
 
 
 class Home extends Component {
@@ -21,13 +22,19 @@ class Home extends Component {
   render() {
     return (
       
-      <div className="Home">
-        {/* map through each movie item from redux store to display on DOM */}
+      <div>
+        <div className="header">
+            <h1>Movies</h1>
+            <h2>click on a movie to view details</h2>
+        </div>
+        <div className="movieContainer">
+            {/* map through each movie item from redux store to display on DOM */}
         {this.props.reduxState.movies.map((movie)=>{
             return <MovieItem key={movie.id} 
                               movie={movie}
                               goToDetails={this.goToDetails}/>
         })}
+        </div>
       </div>
     );
   }

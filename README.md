@@ -11,7 +11,7 @@ Utilizing Redux-sagas to handle server calls while program displays a list of mo
  - Redux-Saga
  - PostgreSQL
  - Postico
- - CSS flex-box and grid
+ - CSS grid
 ​
 ### Prerequisites
 ​

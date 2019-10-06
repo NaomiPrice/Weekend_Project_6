@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Mansalva|Open+Sans&display=swap');
+
+.movieContainer{
+    font-family: 'Mansalva', cursive;
+}
+.movieContainer{
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 30px;
+}
+
+.header {
+    background: black;
+    color: white;
+    padding: 30px;
+    font-family: 'Open Sans', sans-serif;
+}
+h2{
+    font-size: 20px;
+}
