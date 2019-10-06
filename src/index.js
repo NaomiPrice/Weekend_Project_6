@@ -18,6 +18,7 @@ function* rootSaga() {
  yield takeEvery('GET_MOVIES', getMovieData);
  yield takeEvery('GET_ONE_MOVIE', getOneMovie);
  yield takeEvery('GET_GENRES', getGenres);
+ yield takeEvery('UPDATE_MOVIE', updateMovie);
 }
 
 function* getMovieData(){
@@ -47,6 +48,14 @@ function* getGenres(action){
     }
 }
 
+function* updateMovie(action){
+    try{
+        yield axios.post('/movies', action.payload);
+    } catch(error){
+        console.log('error updating movie information');
+    }
+}
+
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
@@ -69,8 +78,8 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-
-const oneMovie = (state=[], action)=>{
+//used to store individual movie for details page
+const oneMovie = (state={}, action)=>{
     if (action.type === 'SET_ONE_MOVIE'){
         return action.payload;
     }

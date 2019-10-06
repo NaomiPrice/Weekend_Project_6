@@ -26,6 +26,7 @@ class Details extends Component {
 
   // Renders the entire app on the DOM
   render() {
+    let movie = this.props.reduxState.oneMovie;
     return (
       
       <div className="Details">
@@ -33,12 +34,12 @@ class Details extends Component {
         <button onClick={this.goBack}>BACK TO LIST</button>
         <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
         {/* map through and display title and description for the selected movie */}
-        {this.props.reduxState.oneMovie.map(movie => {
-            return <div className="movieDetailsDiv" key={movie.id}>
-                    <h3>{movie.title}</h3>
-                    <p>{movie.description}</p>
-                  </div>
-        })}
+        
+        <div className="movieDetailsDiv">
+            <h3>{movie.title}</h3>
+            <p>{movie.description}</p>
+        </div>
+    
         <div className="genres">
             <h4>Genres</h4>
             <ul>

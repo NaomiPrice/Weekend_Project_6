@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 
 class Edit extends Component {
 
   state = {
-    updateTitle: null,
-    updateDescription: null
+    newTitle: '',
+    newDescription: '',
+    movieId: this.props.match.params.id
   }
+  componentDidMount = ()=>{
+    this.getDetails();
+  }
+
+  getDetails = ()=>{
+    this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
+  }
+
+
   handleChange = (propertyName, event)=>{
     //update local state as user inputs changes
-    console.log(event.target.value)
     this.setState({
       ...this.state,
       [propertyName]: event.target.value
@@ -18,7 +28,9 @@ class Edit extends Component {
 
   handleSave = ()=>{
     //save updates made
-    console.log('save button clicked')
+    this.props.dispatch({type: 'UPDATE_MOVIE', payload: this.state})
+    //step back to details page
+    this.props.history.goBack();
   }
 
   goBack = ()=>{
@@ -35,14 +47,23 @@ class Edit extends Component {
         <button onClick={this.goBack}>CANCEL</button>
         <button onClick={this.handleSave}>SAVE CHANGES</button>
         <br></br>
-        <label>Movie Title: </label>
-          <input type="text" onChange={(event)=>{this.handleChange('updateTitle', event)}}></input>
+        <label> Update Movie Title: 
+          <input type="text" value={this.state.newTitle} 
+                 onChange={(event)=>{this.handleChange('newTitle', event)}}></input>
+        </label>
         <br></br>
-        <label>Movie Description: </label>
-          <input type="text" onChange={(event)=>{this.handleChange('updateDescription', event)}}></input>
+        <label>Update Movie Description: 
+          <input type="text" value={this.state.newDescription} 
+                 onChange={(event)=>{this.handleChange('newDescription', event)}}></input>
+        </label>
+          
       </div>
     );
   }
 }
 
-export default Edit;
+const putReduxStateOnProps = (reduxState) => ({
+  reduxState
+})
+
+export default connect(putReduxStateOnProps)(Edit);

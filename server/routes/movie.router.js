@@ -18,7 +18,7 @@ router.get('/details/:id', (req, res)=>{
     let queryText = `SELECT "id", "title", "description" FROM "movies" WHERE "id" = $1;`;
     pool.query(queryText, [req.params.id]).then((result)=>{
         //sends back the movie results in an object
-        res.send(result.rows);
+        res.send(result.rows[0]);
     }).catch((error)=>{
         console.log('error getting movies', error);
         res.sendStatus(500);
@@ -38,6 +38,23 @@ router.get('/genres/:id', (req, res)=>{
         res.send(result.rows);
     }).catch((error)=>{
         console.log('error getting movies', error);
+        res.sendStatus(500);
+    })
+})
+
+router.post('/', (req, res)=>{
+    let updates = req.body;
+    console.log(updates);
+    let queryText = `UPDATE "movies" SET "title" = $1, "description" = $2 WHERE "id" = $3`;
+    let queryValues = [
+        updates.newTitle,
+        updates.newDescription,
+        updates.movieId
+    ];
+    pool.query(queryText, queryValues).then((results)=>{
+        res.sendStatus(200)
+    }).catch((error)=>{
+        console.log('error updating movie', error);
         res.sendStatus(500);
     })
 })
