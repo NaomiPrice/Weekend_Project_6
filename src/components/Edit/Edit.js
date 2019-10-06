@@ -10,12 +10,20 @@ class Edit extends Component {
     movieId: this.props.match.params.id
   }
   componentDidMount = ()=>{
-    this.getDetails();
+     //dispatch to saga to then run get request and store in Redux
+    this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id });
   }
 
-  getDetails = ()=>{
-    //dispatch to saga to then run get request to hopefully use to set default state
-    this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
+  componentDidUpdate = (prevProps)=>{
+    //when redux props update this will compare previous redux state to current and run accordingly
+    if (this.props.reduxState.oneMovie !== prevProps.reduxState.oneMovie){
+      const movie = this.props.reduxState.oneMovie;
+      //set local state based on Redux state
+      this.setState({
+        newTitle: movie.title,
+        newDescription: movie.description
+      })
+    }
   }
 
 
@@ -28,7 +36,7 @@ class Edit extends Component {
   }
 
   handleSave = ()=>{
-    //dispatch to saga to trigger post request to update movie info
+    //upon clicking save: dispatch to saga to trigger post request to update movie info
     this.props.dispatch({type: 'UPDATE_MOVIE', payload: this.state})
     //step back to details page
     this.props.history.goBack();
@@ -41,6 +49,7 @@ class Edit extends Component {
 
   // Renders the entire app on the DOM
   render() {
+
     return (
       
       <div className="Edit">
