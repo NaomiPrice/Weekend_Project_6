@@ -9,6 +9,7 @@ class Home extends Component {
     }
 
     getMovies = ()=>{
+        //sagas call to get all movies from server/db
         this.props.dispatch({ type: 'GET_MOVIES'});
     }
 
@@ -21,16 +22,13 @@ class Home extends Component {
     return (
       
       <div className="Home">
-        <p>Home screen</p>
-        map through each movie item from redux store to display on DOM
+        {/* map through each movie item from redux store to display on DOM */}
         {this.props.reduxState.movies.map((movie)=>{
             return <MovieItem key={movie.id} 
                               movie={movie}
                               goToDetails={this.goToDetails}/>
         })}
-       
       </div>
-      
     );
   }
 }

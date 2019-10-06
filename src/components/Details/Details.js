@@ -5,14 +5,12 @@ import {connect} from 'react-redux';
 class Details extends Component {
     componentDidMount = ()=>{
         this.getInfo();
-
     }
 
     getInfo = ()=>{
-        console.log(this.props.match.params.id);
-        //server call to get details for only this movie
+        // saga call to server call to get details for only this movie
         this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
-        //server call to get generas that go with this movie
+        //saga call to server call to get generas that go with this movie
         this.props.dispatch({ type: 'GET_GENRES', payload: this.props.match.params.id })
     }
 
@@ -33,7 +31,6 @@ class Details extends Component {
         
         <button onClick={this.goBack}>BACK TO LIST</button>
         <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
-        {/* map through and display title and description for the selected movie */}
         
         <div className="movieDetailsDiv">
             <h3>{movie.title}</h3>

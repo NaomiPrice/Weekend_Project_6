@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 router.get('/', (req, res)=>{
-    //DB call to get all data from "movies" table
+    //DB call to get title and poster from "movies" table
     let queryText = `SELECT "id", "title", "poster" FROM "movies";`;
     pool.query(queryText).then((result)=>{
         //sends back the movie results in an object
@@ -15,6 +15,7 @@ router.get('/', (req, res)=>{
 })//end GET route
 
 router.get('/details/:id', (req, res)=>{
+    //DB call to get info for specific movie for details page
     let queryText = `SELECT "id", "title", "description" FROM "movies" WHERE "id" = $1;`;
     pool.query(queryText, [req.params.id]).then((result)=>{
         //sends back the movie results in an object
@@ -26,6 +27,7 @@ router.get('/details/:id', (req, res)=>{
 })
 
 router.get('/genres/:id', (req, res)=>{
+    // DB call to get genres that go with specific movie for details page
     let queryText = `SELECT "genres".name
     FROM "genres"
     JOIN "movies_genres"
@@ -43,8 +45,8 @@ router.get('/genres/:id', (req, res)=>{
 })
 
 router.post('/', (req, res)=>{
+    //DB call to update title and description for specific movie in edit page
     let updates = req.body;
-    console.log(updates);
     let queryText = `UPDATE "movies" SET "title" = $1, "description" = $2 WHERE "id" = $3`;
     let queryValues = [
         updates.newTitle,

@@ -14,6 +14,7 @@ class Edit extends Component {
   }
 
   getDetails = ()=>{
+    //dispatch to saga to then run get request to hopefully use to set default state
     this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
   }
 
@@ -27,7 +28,7 @@ class Edit extends Component {
   }
 
   handleSave = ()=>{
-    //save updates made
+    //dispatch to saga to trigger post request to update movie info
     this.props.dispatch({type: 'UPDATE_MOVIE', payload: this.state})
     //step back to details page
     this.props.history.goBack();

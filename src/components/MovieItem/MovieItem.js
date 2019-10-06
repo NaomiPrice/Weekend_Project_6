@@ -7,7 +7,7 @@ class MovieItem extends Component {
   render() {
       let movie = this.props.movie;
     return (
-      
+    //   each movie item details to display 
       <div className="MovieItem">
         <div className="movieImage" onClick={()=>{this.props.goToDetails(movie.id)}}>
             <img src={movie.poster} alt={movie.title}></img>

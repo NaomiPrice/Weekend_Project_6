@@ -12,11 +12,13 @@ class App extends Component {
       <Router>
         <div className="App">
           <Route path="/" exact component={Home}></Route>
+          {/* route renders Details component and passes through navagation props(match and history) to use in those routes */}
           <Route path="/details/:id" render={(navProps)=>(
             <Details 
               match={navProps.match}
               history={navProps.history}/>
           )}></Route>
+          {/* route renders Edit component and passes through navagation props(match and history) to use in those routes */}
           <Route path="/edit/:id" render={(navProps)=>(
             <Edit 
               match={navProps.match}

@@ -15,13 +15,14 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
- yield takeEvery('GET_MOVIES', getMovieData);
- yield takeEvery('GET_ONE_MOVIE', getOneMovie);
- yield takeEvery('GET_GENRES', getGenres);
- yield takeEvery('UPDATE_MOVIE', updateMovie);
+    yield takeEvery('GET_MOVIES', getMovieData);
+    yield takeEvery('GET_ONE_MOVIE', getOneMovie);
+    yield takeEvery('GET_GENRES', getGenres);
+    yield takeEvery('UPDATE_MOVIE', updateMovie);
 }
 
 function* getMovieData(){
+    //runs GET call to server then updates redux state with result 
     try{
         const response = yield axios.get('/movies');
         yield put({ type: 'SET_MOVIES', payload: response.data});
@@ -31,6 +32,7 @@ function* getMovieData(){
 }
 
 function* getOneMovie(action){
+    //runs GET call to server then updates redux state with specific movie requested
     try{
         const response = yield axios.get(`/movies/details/${action.payload}`);
         yield put({type: 'SET_ONE_MOVIE', payload: response.data});
@@ -40,6 +42,7 @@ function* getOneMovie(action){
 }
 
 function* getGenres(action){
+    // runs GET call to server then updates redux with genres for specific movie
     try{
         const response = yield axios.get(`/movies/genres/${action.payload}`);
         yield put({type: 'SET_GENRES', payload: response.data});
@@ -49,6 +52,7 @@ function* getGenres(action){
 }
 
 function* updateMovie(action){
+    //runs POST request to server to update title and description
     try{
         yield axios.post('/movies', action.payload);
     } catch(error){
